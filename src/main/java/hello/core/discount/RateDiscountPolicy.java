@@ -5,7 +5,7 @@ import hello.core.member.Member;
 
 public class RateDiscountPolicy implements DiscountPolicy{
 
-    private final int discountPercent = 10;
+    private final int discountPercent = 20;
     @Override
     public int discount(Member member, int price) {
         if(member.getGrade() == Grade.VIP){
