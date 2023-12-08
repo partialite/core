@@ -1,10 +1,13 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,9 +25,44 @@ public class OrderServiceImpl implements OrderService{
      * 최근에는 생성자를 딱 1개 두고, @Autowired 를 생략하는 방법을 주로 사용한다.
      * 여기에 Lombok 라이브러리의 @RequiredArgsConstructor 함께 사용하면 기능은 다 제공하면서, 코드는 깔끔하게 사용할 수 있다
      */
+    @Getter
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
 
+//    @Autowired
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        System.out.println("memberRepository : " + memberRepository);
+//        System.out.println("discountPolicy : " + discountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    /**
+     * 1. @Autowired 의존관계 자동 주입
+     */
+//    @Autowired
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
+//        System.out.println("memberRepository : " + memberRepository);
+//        System.out.println("discountPolicy : " + rateDiscountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = rateDiscountPolicy;
+//    }
+
+    /**
+     * 2. @Qualifier 의존관계 자동 주입
+     */
+//    @Autowired
+//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+//    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+//        System.out.println("memberRepository : " + memberRepository);
+//        System.out.println("discountPolicy : " + discountPolicy);
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
+
+    /**
+     * 3. @primary 의존관계 자동 주입 => 가장 많이 사용
+     */
 //    @Autowired
 //    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
 //        System.out.println("memberRepository : " + memberRepository);
@@ -66,8 +104,8 @@ public class OrderServiceImpl implements OrderService{
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
 
-    // 테스트 용도
-    public MemberRepository getMemberRepository() {
-        return memberRepository;
-    }
+//    // 테스트 용도
+//    public MemberRepository getMemberRepository() {
+//        return memberRepository;
+//    }
 }
